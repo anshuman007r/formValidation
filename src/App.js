@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Input from './components/Input';
+import {FORM_FILEDS} from './utils/Appdata';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  constructor(props)
+  {
+    super(props);
+    this.state={
+      name:'',
+      email:'',
+    }
+  }
 
-export default App;
+  createField=()=>{
+      return FORM_FILEDS.map((item)=>(<Input Label={item.Label} type={item.type}/>))
+  }
+  render() {
+    return (
+      <div className="formPage">
+        <form className="form">
+          {this.createField()}
+          <div className="submitButton">
+            <span><button type="submit">submit </button></span> 
+            <span><button type="reset">reset </button></span>
+          </div>
+        </form> 
+      </div>
+    )
+  }
+}
