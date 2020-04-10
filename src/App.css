@@ -97,3 +97,7 @@ span
 {
   padding-left:10px;
 }
+.errorMessage
+{
+  color:red;
+}
