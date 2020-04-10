@@ -8,15 +8,26 @@ export default class App extends Component {
   {
     super(props);
     this.state={
-      name:'',
-      email:'',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     }
   }
 
+  handleInput = (event) => {
+    const {name, value} = event.target;
+    this.setState({[name]:value});
+  }
+
   createField=()=>{
-      return FORM_FILEDS.map((item)=>(<Input Label={item.Label} type={item.type}/>))
+      return FORM_FILEDS.map((item)=>(
+      <Input Label={item.Label} name={item.name} onChange={this.handleInput} type={item.type} key={item.id}/>
+      ))
   }
   render() {
+    // console.log(this.state);
     return (
       <div className="formPage">
         <form className="form">
