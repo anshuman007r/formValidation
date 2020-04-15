@@ -5,8 +5,10 @@ import {SIGNUP_ROUTE} from './utils/routeConstants';
 import {apiCall} from './utils/fetchHelpers';
 import {regexTest,showState} from './utils/Validationregex';
 import './App.css';
+import { setToken } from './utils/auth';
+import { withRouter } from "react-router";
 
-export default class App extends Component {
+ class App extends Component {
   constructor(props)
   {
     super(props);
@@ -18,9 +20,6 @@ export default class App extends Component {
       confirmPassword: '',
       buttonState:false,
       checkValid:false,
-      status:'',
-      data:{},
-      flag:false,
     }
   }
 
@@ -61,8 +60,11 @@ export default class App extends Component {
         firstName:this.state.firstName,
         lastName:this.state.lastName,
       }
-    }).then((res)=>{this.setState({status:res.status,data:res});});
-    this.setState({flag:false});
+    }).then((res)=>{
+      setToken(res.token)
+      this.props.setName(res.firstName);
+      this.props.history.push('/');
+    });
   }
 
   createField=()=>{
@@ -80,15 +82,6 @@ export default class App extends Component {
       ))
   }
   render() {
-    const {status,flag}=this.state;
-    console.log('flag',flag)
-    if(status !== '' && status !==undefined && flag!==true )
-    {
-      this.setState({flag:true});
-      const {data}=this.state;
-      this.props.checkStatus(status,data);
-      
-    }
     const {buttonState} = this.state;
     return (
       <div className="formPage">
@@ -106,3 +99,4 @@ export default class App extends Component {
     )
   }
 }
+export default withRouter(App);

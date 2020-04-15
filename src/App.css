@@ -114,7 +114,7 @@ li
 {
   display:inline;
   padding-top:30px;
-  padding-left :20%;
+  padding-left :15%;
   font-size: 22px;
 }
 
@@ -168,4 +168,9 @@ p
   font-size:20px;
   padding-left:40%;
   padding-top:0px;
+}
+
+img {
+  height: 400px;
+  min-width: -webkit-fill-available;
 }

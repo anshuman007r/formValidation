@@ -12,8 +12,12 @@ export const resolveRequest = async res => {
   try {
     const output =  await getResponseBody(res);
     if(res.ok){
-      const  change={status:res.status,output};
-      return Promise.resolve(change);
+      const validResponse = {
+        status: res.status,
+        ...output,
+      };
+
+      return Promise.resolve(validResponse);
     }
 
     else {
