@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
-import { clearToken } from '../utils/auth';
+import { clearToken,clearName} from '../utils/auth';
 
 class Logout extends Component {
-
-  logout = () => {
+  componentDidMount(){
     clearToken();
+    clearName();
     this.props.setName('');
     this.props.history.push('/login');
   }
+
   render() {
     return (
-             <div>
-               {this.logout()}
-             </div>
+      <div>
+        This is the logout page
+      </div>
     )
   }
 };

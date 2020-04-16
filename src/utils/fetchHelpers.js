@@ -1,3 +1,5 @@
+import {getToken} from './auth';
+
 export const getResponseBody = async res => {
   try {
     return await res.json();
@@ -42,7 +44,7 @@ export const apiCall = (url = '', data = {})  => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Bearer',
+      Authorization: data.credentials ? `Bearer ${getToken()}`: '',
     },
     body: data.bodyData ? JSON.stringify(data.bodyData) : undefined,
   })

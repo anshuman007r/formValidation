@@ -4,13 +4,12 @@ import {FORM_FILEDS} from '../utils/Appdata'
 import {LOGIN_ROUTE} from '../utils/routeConstants';
 import {apiCall} from '../utils/fetchHelpers';
 import {regexTest,showState} from '../utils/Validationregex';
-import {setToken, getToken} from '../utils/auth';
+import {setToken,setName} from '../utils/auth';
 import { withRouter } from "react-router";
 import '../App.css';
 
  class Login extends Component {
   constructor(props){
-    console.log('Login mounted');
     super(props);
     this.state={
       buttonState:false,
@@ -49,7 +48,7 @@ import '../App.css';
       }
     }).then((res)=>{
        setToken(res.token)
-       this.props.setName(res.firstName);
+       setName(res.firstName)
        this.props.history.push('/');
 
     });
@@ -72,26 +71,23 @@ import '../App.css';
     ))
   }
 
-    render() {
-
-      const { buttonState } = this.state;
-        return (
-            <div>
-              <div className="formPage">
-                <div className="formTitle">Login</div>
-                  <form className="form">
-                    {this.createField()}
-                    <div className="submitButton">
-                      <span>
-                        <button type="submit" disabled={!buttonState} onClick={this.submitForm}>Login </button>
-                      </span> 
-                      <span><button type="reset">reset </button></span>
-                    </div>
-                  </form> 
-                  </div>
-            </div>
-        )
-    }
+  render() {
+    const { buttonState } = this.state;
+    return (
+      <div className="formPage">
+        <div className="formTitle">Login</div>
+        <form className="form">
+          {this.createField()}
+          <div className="submitButton">
+            <span>
+              <button type="submit" disabled={!buttonState} onClick={this.submitForm}>Login </button>
+            </span> 
+            <span><button type="reset">reset </button></span>
+          </div>
+        </form> 
+      </div>
+    )
+  }
 }
 
 export default withRouter(Login);

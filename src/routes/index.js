@@ -1,27 +1,41 @@
 import React,{Component} from "react";
-// import { PropTypes } from 'react'
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
 import { withRouter } from "react-router";
 import Login from './../components/Login';
 import Home from './../components/Home';
 import About from './../components/About';
 import Logout from './../components/Logout';
 import SignUp from '../App';
+import Header from '../components/Header';
 import ProtectedRoute from './ProtectedRoute';
-import {getToken} from '../utils/auth';
+import {getToken,getName} from '../utils/auth';
+// import {apiCall} from '../utils/fetchHelpers';
+// import {VERIFY_TOKEN_ROUTE} from '../utils/routeConstants';
 import '../App.css';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import {Services} from '../components/Services';
 
 class App extends Component {
   state={
     firstName: '',
-    lastName: '',
-    tokenStatus:false,
+  }
+  
+  componentDidMount(){
+    // const token = getToken();
+    // if(!this.state.firstName && token){
+    //   apiCall(VERIFY_TOKEN_ROUTE, {
+    //     method: 'GET',
+    //     credentials: true,
+    //   }).then((res) => {
+    //     this.setState({firstName: res.firstName});
+    //     this.props.history.push('/');
+    //   })
+    // }
+    this.setState({firstName:getName()})
   }
 
   setName = (firstName) => {
@@ -32,51 +46,21 @@ class App extends Component {
     const {firstName}=this.state; 
     return (
       <Router>
-        <div >
-          
-          <ul className="header">
-            <li>
-              <Link className="linkTag" to="/">Home</Link>
-            </li>
-            <li>
-              <Link className="linkTag" to="/about">About</Link>
-            </li>
-            {firstName===''?
-            (<show>
-                <li>
-                  <Link className="linkTag" to="/signup">Signup</Link>
-                </li>
-                <li>
-                  <Link className="linkTag" to="/login">Login</Link>
-                </li>
-            </show>):
-            (<show >
-                <li>
-                  <Link className="linkTag" to="/name">Hi {firstName}</Link>
-                </li>
-                <li>
-                  <Link className="linkTag" to="/logout">Logout</Link>
-                </li>
-            </show>)}
-          </ul>
-          </div>
-  
-          <Switch>
-            <Route path="/logout">
-              <Logout setName={this.setName}/>
-            </Route>
-            <Route exact path="/" component={Home}/>
-             <Route path="/about">
-             {getToken() ? (<About />):(<Redirect from="/about" to="/login"/>)}
-            </Route> 
-            {/* <ProtectedRoute path='/about' component={About} /> */}
-            <Route path="/signup">
-              {getToken() ?(<Redirect from="/signup" to="/about"/>) : (<SignUp />)}
-            </Route> 
-            <Route path="/login">
-              {getToken()? (<Redirect from="/login" to="/about"/>) : (<Login setName={this.setName} />)}
-            </Route>
-          </Switch>
+        <Header firstName={firstName}/>
+        <Switch>
+          <Route path="/logout">
+            <Logout setName={this.setName}/>
+          </Route>
+          <Route exact path="/" component={Home}/>
+          <ProtectedRoute path='/about' component={About} />
+          <ProtectedRoute path='/testPrivate' component={Services} />
+          <Route path="/signup">
+            {getToken() ?(<Redirect from="/signup" to="/about"/>) : (<SignUp />)}
+          </Route> 
+          <Route path="/login">
+            {getToken()? (<Redirect from="/login" to="/about"/>) : (<Login setName={this.setName}/>)}
+          </Route>
+        </Switch>
       </Router>
     );
   }

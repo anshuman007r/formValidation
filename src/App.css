@@ -114,7 +114,7 @@ li
 {
   display:inline;
   padding-top:30px;
-  padding-left :15%;
+  padding-right :12%;
   font-size: 22px;
 }
 
@@ -134,6 +134,7 @@ li
   height:150px;
   float:left;
   padding-top:50px;
+  padding-bottom: 50px;
 }
 .rightPannel
 {
@@ -141,6 +142,7 @@ li
   height:150px;
   float:right;
   padding-top:50px;
+  padding-bottom:50px;
 }
 .left
 {
@@ -162,13 +164,13 @@ li
   padding-bottom:12px;
 
 }
-p
+/* p
 {
   color:red;
   font-size:20px;
   padding-left:40%;
   padding-top:0px;
-}
+} */
 
 img {
   height: 400px;

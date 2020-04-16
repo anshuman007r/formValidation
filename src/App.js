@@ -5,7 +5,7 @@ import {SIGNUP_ROUTE} from './utils/routeConstants';
 import {apiCall} from './utils/fetchHelpers';
 import {regexTest,showState} from './utils/Validationregex';
 import './App.css';
-import { setToken } from './utils/auth';
+import { setToken,setName} from './utils/auth';
 import { withRouter } from "react-router";
 
  class App extends Component {
@@ -62,7 +62,7 @@ import { withRouter } from "react-router";
       }
     }).then((res)=>{
       setToken(res.token)
-      this.props.setName(res.firstName);
+      setName(res.firstName)
       this.props.history.push('/');
     });
   }
