@@ -12,7 +12,7 @@ export default class Header extends Component {
           <li>
             <Link className="linkTag" to="/testPrivate">Services</Link>
           </li>
-          {getName()?
+          { getName()!=='undefined' && getName()!==null?
             (<>
                 <li>
                   <Link className="linkTag" to="/about">About</Link>

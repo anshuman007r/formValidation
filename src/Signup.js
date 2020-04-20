@@ -8,7 +8,7 @@ import './App.css';
 import { setToken,setName} from './utils/auth';
 import { withRouter } from "react-router";
 
- class App extends Component {
+ class Signup extends Component {
   constructor(props)
   {
     super(props);
@@ -63,7 +63,7 @@ import { withRouter } from "react-router";
     }).then((res)=>{
       setToken(res.token)
       setName(res.firstName)
-      this.props.history.push('/');
+      res.token!==undefined?this.props.history.push('/'):this.props.history.push('/signup');
     });
   }
 
@@ -99,4 +99,4 @@ import { withRouter } from "react-router";
     )
   }
 }
-export default withRouter(App);
+export default withRouter(Signup);

@@ -5,11 +5,12 @@ import {getToken} from '../utils/auth';
 export default class ProtectedRoute extends Component {
   render() {
     const {component: Component, ...rest} = this.props;
-    const token = getToken();
+    const token=getToken()==='undefined'?false:getToken();
     return (
       <Route {...rest} render={(props) => (
-        token ? (<Component {...props} />) : 
-           (<Redirect to='/login' />)   
+
+        token?(<Component {...props} />) :(<Redirect to='/login' />)
+   
      )} />
     )
   }

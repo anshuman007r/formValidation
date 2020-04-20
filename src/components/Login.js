@@ -49,8 +49,7 @@ import '../App.css';
     }).then((res)=>{
        setToken(res.token)
        setName(res.firstName)
-       this.props.history.push('/');
-
+       res.token!==undefined?this.props.history.push('/'):this.props.history.push('/login');
     });
   }
 
@@ -72,9 +71,10 @@ import '../App.css';
   }
 
   render() {
-    const { buttonState } = this.state;
+    const { buttonState ,showError} = this.state;
     return (
       <div className="formPage">
+        {showError && <p className="errorMessage">error Encounterd</p>}
         <div className="formTitle">Login</div>
         <form className="form">
           {this.createField()}

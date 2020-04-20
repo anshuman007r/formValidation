@@ -50,10 +50,11 @@ export const apiCall = (url = '', data = {})  => {
   })
   // .then((res)=>{return res})
   // .then((data)=>console.log(data.body));
+  
   .then(resolveRequest)
   .then((res)=>{return res})
   .catch((e)=>{return (e)});
 
-  // .then(response => response);
+
   // .then(async(res) => {return await res.json()} ).then(console.log)
 }
